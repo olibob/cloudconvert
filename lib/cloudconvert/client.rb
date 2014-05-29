@@ -23,7 +23,6 @@ module Cloudconvert
 
   class Upload
     def initialize(config = Cloudconvert.configuration)
-      config.validate!
       @up ||= Faraday.new(url: config.api_url) do |faraday|
         faraday.request  :multipart
         faraday.request  :url_encoded
