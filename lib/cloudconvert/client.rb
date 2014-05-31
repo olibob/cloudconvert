@@ -1,15 +1,14 @@
 module Cloudconvert
-  # TODO: DRY this up?
   class Client
     # Faraday middleware
-    def initialize
-      raise API_KEY_ERROR if Cloudconvert.configuration.api_key.nil?
+    def initialize(config = Cloudconvert.configuration)
+      config.validate!
 
-      @conn ||= Faraday.new(url: Cloudconvert::CONVERSION_URL) do |faraday|
-        faraday.request 			:json
-        faraday.response			:json, content_type: /\bjson$/
-        # faraday.response			:logger
-        faraday.adapter 			Faraday.default_adapter
+      @conn ||= Faraday.new(url: config.api_url) do |faraday|
+        faraday.request  :json
+        faraday.response :json, content_type: /\bjson$/
+        # faraday.response :logger
+        faraday.adapter  Faraday.default_adapter
       end
     end
 
@@ -23,14 +22,13 @@ module Cloudconvert
   end
 
   class Upload
-    def initialize
-
-      @up ||= Faraday.new(url: Cloudconvert::CONVERSION_URL) do |faraday|
-        faraday.request 			:multipart
-        faraday.request 			:url_encoded
-        faraday.response			:json, content_type: /\bjson$/
-        # faraday.response			:logger
-        faraday.adapter 			Faraday.default_adapter
+    def initialize(config = Cloudconvert.configuration)
+      @up ||= Faraday.new(url: config.api_url) do |faraday|
+        faraday.request  :multipart
+        faraday.request  :url_encoded
+        faraday.response :json, content_type: /\bjson$/
+        # faraday.response :logger
+        faraday.adapter  Faraday.default_adapter
       end
     end
 

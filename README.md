@@ -1,6 +1,6 @@
 # Cloudconvert
 
-Ruby wrapper for CloudConvert [CloudConvert ](https://cloudconvert.org/page/api)
+Ruby wrapper for CloudConvert [CloudConvert](https://cloudconvert.org/page/api)
 
 ## Installation
 
@@ -18,11 +18,10 @@ Or install it yourself as:
 
 ## Configuration
 
-This is a Ruby wrapper for [Cloud Convert](http:/cloudconvert.org) where you can convert files from one format to another format.
+This is a Ruby wrapper for [CloudConvert](http:/cloudconvert.org) where you
+can convert files from one format to another format.
 
 ```ruby
-Configure CloudConvert
-
 	Cloudconvert.configure do |config|
 		config.api_key  = your_api_key
 
@@ -31,13 +30,19 @@ Configure CloudConvert
 	end
 ```
 
-By providing a callback URL when starting the conversion, it is possible to get notified when the conversion is finished. When the conversion completed (or ended with an error), the following GET request will be executed: ` callback url?id=....&url=...`
+By providing a callback URL when starting the conversion, it is possible to
+get notified when the conversion is finished. When the conversion completed
+(or ended with an error), the following GET request will be executed: `
+callback url?id=....&url=...`
 
-If you want to use AWS S3 for your conversion, create an IAM user with **s3:GetObject** and **s3:PutObject** rights. Indicate it's credentials in the configuration or directly in the payload.
+If you want to use AWS S3 for your conversion, create an IAM user with
+**s3:GetObject** and **s3:PutObject** rights. Indicate its credentials in the
+configuration or directly in the payload.
 
 ## Usage
 
-The [cloudconvert API](https://cloudconvert.org/page/api#overview) list all options you can pass to a payload (a simple Hash)
+The [CloudConvert API](https://cloudconvert.org/page/api#overview) lists all
+options you can pass to a payload (a simple Hash)
 
 In the examples below, replace these `<entries>` with your data.
 
@@ -60,7 +65,7 @@ end
 
 # Create a new process
 conv = Cloudconvert::Conversion.new('md', 'pdf')
-conv.newProcess
+conv.new_process
 
 # Create conversion payload
 # Remove dropbox if you didn't link it
@@ -86,7 +91,7 @@ until (step =~ /error|finished/)
 end
 
 # You should receive an email and your dropbox should sync
-puts "File conerted successfully, url:'http:#{conv.download_link}'" if step == "finished"
+puts "File converted successfully, url:'http:#{conv.download_link}'" if step == "finished"
 puts "Conversion failed" if step == "error"
 
 ```
@@ -110,7 +115,7 @@ end
 
 # Create a new process
 conv = Cloudconvert::Conversion.new('md', 'pdf')
-conv.newProcess
+conv.new_process
 
 # Create an uploadable file
 # Arguments:
@@ -143,7 +148,7 @@ until (step =~ /error|finished/)
 end
 
 # You should receive an email and your dropbox should sync
-puts "File conerted successfully, url:'http:#{conv.download_link}'" if step == "finished"
+puts "File converted successfully, url:'http:#{conv.download_link}'" if step == "finished"
 puts "Conversion failed" if step == "error"
 
 ```
@@ -167,7 +172,7 @@ end
 
 # Create a new process
 conv = Cloudconvert::Conversion.new('md', 'pdf')
-conv.newProcess
+conv.new_process
 
 # Create a Hash containing you credentials and desired bucket
 # For the sake of simplicity, we'll use the same bucket for input and output,
@@ -208,7 +213,7 @@ until (step =~ /error|finished/)
 end
 
 # You should receive an email and your dropbox should sync
-puts "File conerted successfully" if step == "finished"
+puts "File converted successfully" if step == "finished"
 puts "Conversion failed" if step == "error"
 ```
 
